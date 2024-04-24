@@ -17,6 +17,8 @@
 // Route::get('/home', 'HomeController@index')->name('home');
 
 //Auth::routes();
+//ログイン中ページ、auth認証ずみ
+
 
 
 //ログアウト中のページ
@@ -34,7 +36,25 @@ Route::get('/top','PostsController@index');
 
 Route::get('/profile','UsersController@profile');
 
-Route::get('/search','UsersController@index');
+//修正前
+//Route::get('/search','UsersController@index');
+
+//修正後
+Route::get('/search', 'UsersController@search');
 
 Route::get('/follow-list','PostsController@index');
 Route::get('/follower-list','PostsController@index');
+
+//ログアウト機能
+Route::get('/logout', 'Auth\LoginController@showLoginForm')->name('login');
+
+//投稿機能
+Route::get('/posts', 'PostsController@index')->name('posts.index');
+
+
+
+Route::get('/profile', 'UsersController@profile'); //プロフィールページ
+Route::get('/search', 'UsersController@search'); //検索
+
+Route::get('/follow-list', 'FollowsController@followList'); //フォローリスト
+Route::get('/follower-list', 'FollowsController@followerList'); //フォロワーリスト
