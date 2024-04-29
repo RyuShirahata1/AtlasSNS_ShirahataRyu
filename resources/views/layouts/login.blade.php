@@ -18,6 +18,16 @@
     <!--iphoneのアプリアイコン指定-->
     <link rel="apple-touch-icon-precomposed" href="画像のURL" />
     <!--OGPタグ/twitterカード-->
+    <!--  Javascript・jQueryのファイルリンク -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/script.js"></script>
+    <!--  モーダルの初期初期初期スタイル（ログイン後は非表示） -->
+    <style>
+  .modal {
+    display: none;
+  }
+</style>
+
 </head>
 <body>
     <header>
@@ -25,10 +35,10 @@
         <h1><a href="/top"><img src="images/atlas.png"></a></h1>
             <div id="">
                 <div id="">
-                    <p>〇〇さん<img src="images/arrow.png"></p>
+                    <p>{{ Auth::user()->username }}さん<img src="{{ asset('storage/') }}"></p>
                 <div>
                 <div class="accordion">
-                    <p class="nav-btn">ボタン</p>
+                    <p class="nav-btn">　　　</p>
                     <ul class="nav-menu">
                      <li><a href="/top">ホーム</a></li>
                      <li><a href="/profile">プロフィール</a></li>
@@ -61,7 +71,7 @@
     </div>
     <footer>
     </footer>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="{{ asset('js/script.js') }}"></script>
+    <script src=""></script>
+    <script src=""></script>
 </body>
 </html>
