@@ -35,7 +35,7 @@
         <h1><a href="/top"><img src="images/atlas.png"></a></h1>
             <div id="">
                 <div id="">
-                    <p>{{ Auth::user()->username }}さん<img src="{{ asset('storage/') }}"></p>
+                    <p>{{ Auth::user()->username }}さん<img src="{{ asset('storage/' . Auth::user()->images) }}"></p>
                 <div>
                 <div class="accordion">
                     <p class="nav-btn">　　　</p>

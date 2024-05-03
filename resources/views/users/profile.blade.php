@@ -15,15 +15,14 @@
       <input type="text" value="{{ $user->mail }}" class="input" name="mail">
     </label><br>
     <label class="form-group mb-3">
-      password
-      <input type="password" class="input" name="password">
-    </label><br>
-    <label class="form-group mb-3">
-      password comfirm
-      <input type="password" value="" class="input" name="password">
-      <span class="text-danger">{{$errors->first('password_confirmation')}}</span>
-    </label><br>
-    <label class="form-group mb-3">
+  password
+  <input type="password" class="input" name="password">
+</label><br>
+<label class="form-group mb-3">
+  password comfirm
+  <input type="password" class="input" name="password_confirmation"> <!-- パスワード確認フィールド -->
+  <span class="text-danger">{{$errors->first('password_confirmation')}}</span>
+</label><br>
       bio
       <textarea name="bio" rows="2"></textarea>
     </label><br>

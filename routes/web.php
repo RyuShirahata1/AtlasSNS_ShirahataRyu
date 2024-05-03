@@ -69,3 +69,11 @@ Route::get('/follower-list', 'FollowsController@followerList'); //フォロワ�
 
 //プロフィール編集機能
 Route::post('/profile', 'UsersController@profiledit')->name('profile.updated');
+
+//検索機能
+Route::post('/search', 'UsersController@search');
+
+//フォロー機能(viewでrouteへルパによってルーティングの表示をさせる)
+Route::post('users/{user}/follow', 'UsersController@follow')->name('follow');
+//フォロー解除機能
+Route::delete('users/{user}/unfollow','UsersController@unfollow')->name('unfollow');

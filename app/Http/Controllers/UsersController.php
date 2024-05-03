@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use App\Users;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -34,9 +34,10 @@ class UsersController extends Controller
     // ユーザーデータを更新する
     $user->username = $validatedData['name'];
     $user->mail = $validatedData['mail'];
-    if ($validatedData['password']) {
-        $user->password = bcrypt($validatedData['password']); // パスワードをハッシュ化する
-    }
+    if (!empty($validatedData['password'])) {
+    $user->password = bcrypt($validatedData['password']); // パスワードをハッシュ化する
+}
+
     $user->bio = $validatedData['bio'];
 
     // 画像が提供されている場合はアップロードを処理する
@@ -53,7 +54,40 @@ class UsersController extends Controller
     return redirect('/top');
 }
 
-    public function search(){
-        return view('users.search');
+    public function search(Request $request){
+    $keyword = $request->input('keyword');
+
+    // 検索キーワードが入力されている場合は部分一致で検索
+    if(!empty($keyword)){
+        $users = User::where('username', 'like', '%' . $keyword . '%')->paginate(20);
+    } else {
+        // 検索キーワードが入力されていない場合は全てのユーザーを取得
+        $users = User::paginate(20);
     }
+
+    // ビューにユーザー情報と検索キーワードを渡す
+    return view('users.search', compact('users', 'keyword'));
+}
+
+    public function follow(User $user)
+{
+    $follower = auth()->user(); // 認証されたユーザーを取得
+    $is_following = $follower->isFollowing($user->id); // ユーザーが特定のユーザーをフォローしているか確認
+    if (!$is_following) {
+        $follower->follow($user->id); // フォローする
+    }
+    return back();
+}
+
+public function unfollow(User $user)
+{
+    $follower = auth()->user(); // 認証されたユーザーを取得
+    $is_following = $follower->isFollowing($user->id); // ユーザーが特定のユーザーをフォローしているか確認
+    if ($is_following) {
+        $follower->unfollow($user->id); // フォローを解除する
+    }
+    return back();
+}
+
+
 }

@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'mail', 'password',
+        'username', 'mail', 'password', 'bio', // 'bio'フィールドを追加
     ];
 
     /**
@@ -27,4 +27,24 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+     public function isFollowing($user_id)
+    {
+        return $this->follows()->where('followed_id', $user_id)->exists();
+    }
+
+    public function follows()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'following_id', 'followed_id');
+    }
+
+    public function follow($user_id)
+    {
+        $this->follows()->attach($user_id);
+    }
+
+    public function unfollow($user_id)
+    {
+        $this->follows()->detach($user_id);
+    }
 }
